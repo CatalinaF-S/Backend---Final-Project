@@ -7,4 +7,5 @@ Final project of backend modul - DCI
 5. npm install
 6. Create .env and .gitignore > node_modules/ and .env
 7. npm i express-validator
+8. npm install mongoose
 
