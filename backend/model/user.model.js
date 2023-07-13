@@ -12,7 +12,7 @@ async function getSingleUser(id) {
     return user;
 }
 async function updateUser(id, bodyData) {
-    await userNotFound(User, id);
+    await locateUser(User, id);
     return await User.findOneAndUpdate({ _id: id }, bodyData, { new: true });
 }
 
