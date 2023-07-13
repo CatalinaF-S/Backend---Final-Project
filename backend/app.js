@@ -8,6 +8,8 @@ require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const { errorHandler } = require("./middleware/errorHandler");
+
 
 const mongoUser = process.env.MONGO_USER;
 const mongoPwd = process.env.MONGO_PWD;
@@ -38,4 +40,5 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
+app.use(errorHandler);
 module.exports = app;
