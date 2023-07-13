@@ -1,5 +1,7 @@
 const express = require("express");
 const { httpCreateUser } = require("../controller/user.controller");
+const { validationInputs } = require("../middleware/validation");
+const { userValidationRules } = require("../lib/validation/userRules");
 const router = express.Router();
 
 /* GET users listing. */
@@ -8,5 +10,5 @@ router.get("/", function (req, res, next) {
 });
 
 //POST - signup
-router.post("/signup", httpCreateUser);
+router.post("/signup", validationInputs(userValidationRules), httpCreateUser);
 module.exports = router;
