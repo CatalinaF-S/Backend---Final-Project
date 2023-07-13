@@ -11,9 +11,10 @@ exports.validationInputs = (input) => {
                 return next();
             }
             const extractedErrors = errors.array().map((err) => {
-                const err = createError(422, extractedErrors.join(", "));
-                return next(err);
+                err.msg;
             });
+            const err = createError(422, extractedErrors.join(", "));
+            return next(err);
         },
     ];
 };
