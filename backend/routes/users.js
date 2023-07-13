@@ -1,5 +1,9 @@
 const express = require("express");
-const { httpCreateUser } = require("../controller/user.controller");
+const {
+    httpCreateUser,
+    httpGetSingleUser,
+    httpUpdateUser,
+} = require("../controller/user.controller");
 const { validationInputs } = require("../middleware/validation");
 const { userValidationRules } = require("../lib/validation/userRules");
 const router = express.Router();
@@ -11,4 +15,11 @@ router.get("/", function (req, res, next) {
 
 //POST - signup
 router.post("/signup", validationInputs(userValidationRules), httpCreateUser);
+
+//GETSingle User,PUT - update user
+router
+.route("/:id")
+.get(httpGetSingleUser)
+.put(httpUpdateUser);
+
 module.exports = router;
