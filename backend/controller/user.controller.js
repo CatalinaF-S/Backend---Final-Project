@@ -1,15 +1,23 @@
+const { sendAuthEmail } = require("../lib/sendAuthEmail");
 const {
     createUser,
     getSingleUser,
     updateUser,
-    authenticateUser,
 } = require("../model/user.model");
 
 async function httpCreateUser(req, res, next) {
     try {
         const userData = req.body;
         const newUser = await createUser(userData);
-        res.json(newUser);
+
+        const token = await createToken(
+            {
+                username: req.body.username,
+                email: req.body.email,
+            },
+            "token-secret"
+        );
+        res.json({ newUser, token });
     } catch (error) {
         next(error);
     }
@@ -33,24 +41,16 @@ async function httpUpdateUser(req, res, next) {
     }
 }
 
-async function httpAuthenticateUser(req, res, next) {
+async function httpAuthenticateEmail(req, res, next) {
     try {
         const { username, email } = req.body;
-        const user = await authenticateUser(username, email);
+        const emailSent = sendAuthEmail(username, email);
 
-        if (!user) {
-            const error = new Error("Invalid username or email");
+        if (!emailSent) {
+            const error = new Error("Email could not be sent");
             error.statusCode = 400;
             throw error;
         }
-        const token = await createToken(
-            {
-                username: user.username,
-                email: user.email,
-            },
-            "token-secret"
-        );
-        res.json({ user, token });
     } catch (error) {
         next(error);
     }
@@ -60,5 +60,5 @@ module.exports = {
     httpCreateUser,
     httpGetSingleUser,
     httpUpdateUser,
-    httpAuthenticateUser,
+    httpAuthenticateEmail,
 };

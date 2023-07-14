@@ -6,15 +6,16 @@ const sendAuthEmail = (username, email) => {
     const msg = {
         to: email, // Change to your recipient
         from: "catalina.fonseca.silva@gmail.com", // Change to your verified sender
-        subject: "Please verify your email",
+        subject: "Confirm your subscription to our newsletter",
         text: "Please verify your email",
-        html: `<strong>Dear ${username}, please click here</strong>`,
+        html: `Hello ${username}, ,<br>Thank you for subscribing to our newsletter. Please complete and confirm your subscription by clicking here</a>.`,
     };
 
     sgMail
         .send(msg)
         .then(() => {
             console.log("Email sent");
+            return true;
         })
         .catch((error) => {
             console.error(error);

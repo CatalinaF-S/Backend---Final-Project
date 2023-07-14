@@ -3,7 +3,7 @@ const {
     httpCreateUser,
     httpGetSingleUser,
     httpUpdateUser,
-    httpAuthenticateUser,
+    httpAuthenticateEmail,
 } = require("../controller/user.controller");
 const { validationInputs } = require("../middleware/validation");
 const { userValidationRules } = require("../lib/validation/userRules");
@@ -19,7 +19,8 @@ router.post(
     "/signup",
     validationInputs(userValidationRules),
     httpCreateUser,
-    httpAuthenticateUser
+    httpAuthenticateEmail
+    // httpSendEmail
 );
 
 //GETSingle User,PUT - update user

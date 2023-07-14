@@ -16,14 +16,14 @@ async function updateUser(id, bodyData) {
     return await User.findOneAndUpdate({ _id: id }, bodyData, { new: true });
 }
 
-async function authenticateUser(username, email) {
-    const user = await User.findOne({ email });
+// async function authenticateUser(username, email) {
+//     const user = await User.findOne({ email });
 
-    if (!user) {
-        return null;
-    }
+//     if (!user) {
+//         return null;
+//     }
 
-    return user;
-}
+//     return user;
+// }
 
 module.exports = { createUser, getSingleUser, updateUser, authenticateUser };
