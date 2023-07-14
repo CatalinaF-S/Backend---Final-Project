@@ -2,6 +2,7 @@ const {
     createUser,
     getSingleUser,
     updateUser,
+    authenticateUser,
 } = require("../model/user.model");
 
 async function httpCreateUser(req, res, next) {
@@ -32,4 +33,32 @@ async function httpUpdateUser(req, res, next) {
     }
 }
 
-module.exports = { httpCreateUser, httpGetSingleUser, httpUpdateUser };
+async function httpAuthenticateUser(req, res, next) {
+    try {
+        const { username, email } = req.body;
+        const user = await authenticateUser(username, email);
+
+        if (!user) {
+            const error = new Error("Invalid username or email");
+            error.statusCode = 400;
+            throw error;
+        }
+        const token = await createToken(
+            {
+                username: user.username,
+                email: user.email,
+            },
+            "token-secret"
+        );
+        res.json({ user, token });
+    } catch (error) {
+        next(error);
+    }
+}
+
+module.exports = {
+    httpCreateUser,
+    httpGetSingleUser,
+    httpUpdateUser,
+    httpAuthenticateUser,
+};

@@ -1,20 +1,27 @@
 const sgMail = require("@sendgrid/mail");
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const sendAuthEmail = (username, email) => {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const msg = {
-    to: "catalina.fonseca.silva@gmail.com", // Change to your recipient
-    from: "catalina.fonseca.silva@gmail.com", // Change to your verified sender
-    subject: "Sending with SendGrid is Fun",
-    text: "and easy to do anywhere, even with Node.js",
-    html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+    const msg = {
+        to: email, // Change to your recipient
+        from: "catalina.fonseca.silva@gmail.com", // Change to your verified sender
+        subject: "Please verify your email",
+        text: "Please verify your email",
+        html: `<strong>Dear ${username}, please click here</strong>`,
+    };
+
+    sgMail
+        .send(msg)
+        .then(() => {
+            console.log("Email sent");
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    console.log(process.env);
 };
 
-sgMail
-    .send(msg)
-    .then(() => {
-        console.log("Email sent");
-    })
-    .catch((error) => {
-        console.error(error);
-    });
+// sendAuthEmail("catalina", "catalina.fonseca.silva@gmail.com");
+
+module.exports = { sendAuthEmail };
