@@ -17,9 +17,6 @@ router.get("/", function (req, res, next) {
 router.post("/signup", validationInputs(userValidationRules), httpCreateUser);
 
 //GETSingle User,PUT - update user
-router
-.route("/:id")
-.get(httpGetSingleUser)
-.put(httpUpdateUser);
+router.route("/:id").get(httpGetSingleUser).put(httpUpdateUser);
 
 module.exports = router;
