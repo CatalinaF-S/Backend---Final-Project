@@ -19,9 +19,9 @@ async function httpCreateUser(req, res, next) {
                 username: req.body.username,
                 email: req.body.email,
             },
-            "token-secret" //dfdfdgte .env
+            "token-secret"
         );
-        console.log(token);
+        // console.log(token);
         // res.json({ newUser, token }); route abbrechen
         next(token);
     } catch (error) {
@@ -50,10 +50,10 @@ async function httpUpdateUser(req, res, next) {
 async function httpAuthenticateEmail(token, req, res, next) {
     try {
         const link = `http://localhost:3000/users/signup/${token}`;
-        console.log("link: ", link);
+        // console.log("link: ", link);
         const { username, email } = req.body;
         const emailSent = await sendAuthEmail(username, token);
-        console.log("controller");
+        // console.log("controller");
         if (!emailSent) {
             const error = new Error("Email could not be sent");
             error.statusCode = 400;
@@ -76,9 +76,9 @@ async function httpConfirmEmail(req, res, next) {
     try {
         const { token } = req.params;
         const decoded = await verify(token, "token-secret"); //Achtung .env
-        console.log("token decoded: ", decoded);
+        // console.log("token decoded: ", decoded);
         const confirmation = await setStatusConfirm(decoded.email);
-        console.log(confirmation);
+        // console.log(confirmation);
         res.json({ message: "Email was confirmed! 😎" });
     } catch (error) {
         next(error);

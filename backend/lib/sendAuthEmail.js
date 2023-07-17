@@ -12,9 +12,9 @@ const sendAuthEmail = async (username, token) => {
     };
     try {
         const response = await sgMail.send(msg);
-        console.log(response);
-        console.log("Email sent");
-        console.log("env: ", process.env);
+        // console.log(response);
+        // console.log("Email sent");
+        // console.log("env: ", process.env);
         return true;
     } catch (error) {
         console.error(error);
