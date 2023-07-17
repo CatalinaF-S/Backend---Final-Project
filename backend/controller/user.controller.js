@@ -3,8 +3,11 @@ const {
     createUser,
     getSingleUser,
     updateUser,
+    setStatusConfirm,
 } = require("../model/user.model");
 const { createToken } = require("../lib/token");
+const jwt = require("jsonwebtoken");
+const { promisify } = require("util");
 
 async function httpCreateUser(req, res, next) {
     try {
@@ -48,25 +51,35 @@ async function httpAuthenticateEmail(token, req, res, next) {
     try {
         const link = `http://localhost:3000/users/signup/${token}`;
         console.log("link: ", link);
-        // const { username, email } = req.body;
-        // const emailSent = sendAuthEmail(username, email);
-
-        // if (!emailSent) {
-        //     const error = new Error("Email could not be sent");
-        //     error.statusCode = 400;
-        //     throw error;
-        // }
+        const { username, email } = req.body;
+        const emailSent = await sendAuthEmail(username, token);
+        console.log("controller");
+        if (!emailSent) {
+            const error = new Error("Email could not be sent");
+            error.statusCode = 400;
+            throw error;
+        }
         res.json({ link });
     } catch (error) {
         next(error);
     }
 }
 
+const verify = promisify(jwt.verify);
+
+// async function decodeToken(tokenEmail, secret) {
+//     const token = await verify(payload, secret);
+//     return token;
+// }
+
 async function httpConfirmEmail(req, res, next) {
     try {
         const { token } = req.params;
-
-        // res.json({ link });
+        const decoded = await verify(token, "token-secret"); //Achtung .env
+        console.log("token decoded: ", decoded);
+        const confirmation = await setStatusConfirm(decoded.email);
+        console.log(confirmation);
+        res.json({ message: "Email was confirmed! 😎" });
     } catch (error) {
         next(error);
     }

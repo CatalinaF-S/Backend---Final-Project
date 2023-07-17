@@ -16,6 +16,14 @@ async function updateUser(id, bodyData) {
     return await User.findOneAndUpdate({ _id: id }, bodyData, { new: true });
 }
 
+async function setStatusConfirm(email) {
+    return await User.findOneAndUpdate(
+        { email: email },
+        { status: "email confirmed" },
+        { new: true }
+    );
+}
+
 // async function authenticateUser(username, email) {
 //     const user = await User.findOne({ email });
 
@@ -26,4 +34,4 @@ async function updateUser(id, bodyData) {
 //     return user;
 // }
 
-module.exports = { createUser, getSingleUser, updateUser };
+module.exports = { createUser, getSingleUser, updateUser, setStatusConfirm };
