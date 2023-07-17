@@ -4,6 +4,7 @@ const {
     httpGetSingleUser,
     httpUpdateUser,
     httpAuthenticateEmail,
+    httpConfirmEmail,
 } = require("../controller/user.controller");
 const { validationInputs } = require("../middleware/validation");
 const { userValidationRules } = require("../lib/validation/userRules");
@@ -20,8 +21,10 @@ router.post(
     validationInputs(userValidationRules),
     httpCreateUser,
     httpAuthenticateEmail
-    // httpSendEmail
 );
+
+//GET - verifizierung
+router.get("/signup/:token", httpConfirmEmail);
 
 //GETSingle User,PUT - update user
 router.route("/:id").get(httpGetSingleUser).put(httpUpdateUser);

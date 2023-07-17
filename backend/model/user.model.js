@@ -26,4 +26,4 @@ async function updateUser(id, bodyData) {
 //     return user;
 // }
 
-module.exports = { createUser, getSingleUser, updateUser, authenticateUser };
+module.exports = { createUser, getSingleUser, updateUser };

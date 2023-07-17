@@ -4,7 +4,7 @@ const sendAuthEmail = (username, email) => {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
     const msg = {
-        to: email, // Change to your recipient
+        to: "catalina.fonseca.silva@gmail.com", // Change to your recipient
         from: "catalina.fonseca.silva@gmail.com", // Change to your verified sender
         subject: "Confirm your subscription to our newsletter",
         text: "Please verify your email",

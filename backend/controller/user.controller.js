@@ -4,6 +4,7 @@ const {
     getSingleUser,
     updateUser,
 } = require("../model/user.model");
+const { createToken } = require("../lib/token");
 
 async function httpCreateUser(req, res, next) {
     try {
@@ -15,9 +16,11 @@ async function httpCreateUser(req, res, next) {
                 username: req.body.username,
                 email: req.body.email,
             },
-            "token-secret"
+            "token-secret" //dfdfdgte .env
         );
-        res.json({ newUser, token });
+        console.log(token);
+        // res.json({ newUser, token }); route abbrechen
+        next(token);
     } catch (error) {
         next(error);
     }
@@ -41,16 +44,29 @@ async function httpUpdateUser(req, res, next) {
     }
 }
 
-async function httpAuthenticateEmail(req, res, next) {
+async function httpAuthenticateEmail(token, req, res, next) {
     try {
-        const { username, email } = req.body;
-        const emailSent = sendAuthEmail(username, email);
+        const link = `http://localhost:3000/users/signup/${token}`;
+        console.log("link: ", link);
+        // const { username, email } = req.body;
+        // const emailSent = sendAuthEmail(username, email);
 
-        if (!emailSent) {
-            const error = new Error("Email could not be sent");
-            error.statusCode = 400;
-            throw error;
-        }
+        // if (!emailSent) {
+        //     const error = new Error("Email could not be sent");
+        //     error.statusCode = 400;
+        //     throw error;
+        // }
+        res.json({ link });
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function httpConfirmEmail(req, res, next) {
+    try {
+        const { token } = req.params;
+
+        // res.json({ link });
     } catch (error) {
         next(error);
     }
@@ -61,4 +77,5 @@ module.exports = {
     httpGetSingleUser,
     httpUpdateUser,
     httpAuthenticateEmail,
+    httpConfirmEmail,
 };
