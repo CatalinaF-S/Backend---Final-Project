@@ -8,18 +8,20 @@ const {
 const { createToken } = require("../lib/token");
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
+require("dotenv").config();
 
 async function httpCreateUser(req, res, next) {
     try {
         const userData = req.body;
         const newUser = await createUser(userData);
+        const tokenSecret = process.env.TOKEN_SECRET;
 
         const token = await createToken(
             {
                 username: req.body.username,
                 email: req.body.email,
             },
-            "token-secret"
+            tokenSecret
         );
         // console.log(token);
         // res.json({ newUser, token }); route abbrechen

@@ -4,8 +4,8 @@ const sendAuthEmail = async (username, token) => {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
     const msg = {
-        to: "catalina.fonseca.silva@gmail.com", // Change to your recipient
-        from: "catalina.fonseca.silva@gmail.com", // Change to your verified sender
+        to: "jane.sender@example.com", // Change to your recipient
+        from: "jane.sender@example.com", // Change to your verified sender
         subject: "Confirm your subscription to our newsletter",
         text: "Please verify your email",
         html: `Hello ${username}, ,<br>Thank you for subscribing to our newsletter. Please complete and confirm your subscription by clicking here http://localhost:3000/users/signup/${token} </a>.`,

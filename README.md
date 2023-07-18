@@ -4,7 +4,6 @@ _Please note this is a backend only project_
 ## Features
 
 - Collects username, email, interests - incl. input validation
-
 - Saves data in MongoDB collection
 - Creates & sends verification email via SendGrid
 - Updates verified status in database after successful verification
@@ -16,6 +15,19 @@ _Please note this is a backend only project_
 
 Express - MongoDB Atlas - Mongoose - cors  - @sendgrid/mail - cookie-parser - cors - dotenv - express-validator - jsonwebtoken - mongoose
 
+## Try it Yourself
+
+you will need to create a .env file in your root directory with the following environment variables:
+
+- MONGO_USER="your-mongo-username"
+- MONGO_PWD="your-mongo-password"
+- MONGO_CLUSTER="your-mongo-cluster"
+- MONGO_DATABASE="your-mongo-DB"
+- MONGO_ROLES="your-mongo-roles"
+- SENDGRID_API_KEY="your-sndGrid-API-key"
+- TOKEN_SECRET="your-token-secret"
+
+Also you will need do exchange "jane.sender@example.com" with your sendGrid email.
 
 ## Tasks
 1. mkdir backend
