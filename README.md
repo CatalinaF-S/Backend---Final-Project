@@ -27,7 +27,7 @@ you will need to create a .env file in your root directory with the following en
 - SENDGRID_API_KEY="your-sndGrid-API-key"
 - TOKEN_SECRET="your-token-secret"
 
-Also you will need do exchange "jane.sender@example.com" with your sendGrid email.
+Also you will need to exchange "jane.sender@example.com" with your sendGrid email.
 
 ## Tasks
 1. mkdir backend
