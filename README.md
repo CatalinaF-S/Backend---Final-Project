@@ -6,8 +6,11 @@ _Please note this is a backend only project_
 - Collects username, email, interests - incl. input validation
 
 - Saves data in MongoDB collection
-- Creates & Sends verification email via SendGrid
+- Creates & sends verification email via SendGrid
 - Updates verified status in database after successful verification
+
+## Functionality
+![Software Diagram](Flow-chart.png)
 
 ## Tech/Node Modules
 
@@ -22,7 +25,7 @@ Express - MongoDB Atlas - Mongoose - cors  - @sendgrid/mail - cookie-parser - co
 5. npm install
 6. Create .env and .gitignore > node_modules/ and .env
 7. npm install express-validator, mongoose, cors, dotenv, express-validator, jsonwebtoken, mongoose 
-8. set up Atlas Project, invite collaborators, set up network access 
+8. Set up Atlas Project, invite collaborators, set up network access 
 9.  Move Mongo DB access info to environment variables
 10. connect Mongo DB
 11. Create userSchema and userModel for username, email, interests, timestamp
@@ -32,5 +35,5 @@ Express - MongoDB Atlas - Mongoose - cors  - @sendgrid/mail - cookie-parser - co
 15. Validate user inputs (validation.js, userRules.js)
 16. Create json web token
 17. Send confirmation email via sendGrid (sendAuthEmail.js, controller/httpAuthenticateEmail)
-18. confirm email with sendGrid (controller/httpConfirmEmail)
-19. update confirmation status (model/setStatusConfirm)
+18. Confirm email with sendGrid (controller/httpConfirmEmail)
+19. Update confirmation status (model/setStatusConfirm)
